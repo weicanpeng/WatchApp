@@ -5157,6 +5157,38 @@ react-is@^16.8.1, react-is@^16.8.4, react-is@^16.8.6:
   resolved "https://registry.npm.taobao.org/react-is/download/react-is-16.9.0.tgz#21ca9561399aad0ff1a7701c01683e8ca981edcb"
   integrity sha1-IcqVYTmarQ/xp3AcAWg+jKmB7cs=
 
+react-native-amap-geolocation@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.npm.taobao.org/react-native-amap-geolocation/download/react-native-amap-geolocation-1.0.4.tgz#f855532e7ba0e7859affc314e5631c8ca5d87926"
+  integrity sha1-+FVTLnug54Wa/8MU5WMcjKXYeSY=
+
+react-native-audio@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.npm.taobao.org/react-native-audio/download/react-native-audio-4.3.0.tgz#fae22b81f6a4dda706fd4837d0c6a89c66cf2e7e"
+  integrity sha1-+uIrgfak3acG/Ug30MaonGbPLn4=
+
+react-native-progress@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.npm.taobao.org/react-native-progress/download/react-native-progress-3.6.0.tgz#feaf37491f91bb421207fd761e20cb7258a2a3a6"
+  integrity sha1-/q83SR+Ru0ISB/12HiDLcliio6Y=
+  dependencies:
+    prop-types "^15.7.2"
+
+react-native-sensor-manager@^0.1.10:
+  version "0.1.10"
+  resolved "https://registry.npm.taobao.org/react-native-sensor-manager/download/react-native-sensor-manager-0.1.10.tgz#c228280d67fddb668e715b4d7b823188de504da8"
+  integrity sha1-wigoDWf922aOcVtNe4IxiN5QTag=
+
+react-native-sound@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.npm.taobao.org/react-native-sound/download/react-native-sound-0.11.0.tgz#ad60b55ba8c6dc89917f381ad3713f2738de530f"
+  integrity sha1-rWC1W6jG3ImRfzga03E/JzjeUw8=
+
+react-native-splash-screen@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npm.taobao.org/react-native-splash-screen/download/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
+  integrity sha1-1H7IVXsbqYjuPqmNAUYwgbYP/0U=
+
 react-native@0.60.5:
   version "0.60.5"
   resolved "https://registry.npm.taobao.org/react-native/download/react-native-0.60.5.tgz#3c1d9c06a0fbab9807220b6acac09488d39186ee"
