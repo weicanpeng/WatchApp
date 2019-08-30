@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#000',
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   topImg:{
       position:'absolute',
