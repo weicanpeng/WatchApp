@@ -26,7 +26,7 @@ export default class App extends Component {
 
       DeviceEventEmitter.addListener('StepCounter', function (data) {
   
-        //alert(JSON.stringify(data))
+        alert(JSON.stringify(data))
       Storage.save('stepData',{data:data.steps});
       });
       
@@ -97,7 +97,7 @@ export default class App extends Component {
       }
   }
   getBattery(){
-    NativeModules.MyNativeModule.getBattery((result)=>{
+    NativeModules.MyNativeModule.getBattery2((result)=>{
         alert(result);
       });
   }
@@ -109,8 +109,8 @@ export default class App extends Component {
     var dateStr=this.getTodayDate();
     alert(dateStr);
     //this.getImei();
-    //this.getBattery();
-    this.getLocation();
+   // this.getBattery();
+   // this.getLocation();
    //NativeModules.MyNativeModule.setDateTime(2018,07,23,12,12,12);
     Storage.get('stepData').then((tags) => {
       //alert(JSON.stringify(tags));
