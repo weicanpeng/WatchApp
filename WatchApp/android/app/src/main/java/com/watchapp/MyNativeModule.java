@@ -3,8 +3,10 @@ package com.watchapp;
 import android.content.Context;
 import android.content.Intent;
 import android.os.PowerManager;
+import android.content.IntentFilter;
 import android.os.BatteryManager;
 import android.widget.Toast;
+import android.content.ContextWrapper;
 
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -56,6 +58,18 @@ public class MyNativeModule extends ReactContextBaseJavaModule {
         callback.invoke(battery);
         //manager.getIntProperty(BatteryManager.BATTERY_PROPERTY_STATUS);///充电状态
     }
+    @ReactMethod
+    public void getBattery2(Callback callback)
+    {
+        Intent intent = new ContextWrapper(getReactApplicationContext()).
+        registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        int battery= (intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100) /
+        intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+
+        callback.invoke(battery);
+        //manager.getIntProperty(BatteryManager.BATTERY_PROPERTY_STATUS);///充电状态
+    }
+
     @ReactMethod
     public void setDateTime(int year, int month, int day, int hour, int minute)
     {
