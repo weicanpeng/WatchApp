@@ -3,6 +3,13 @@ import {View,Text,TouchableOpacity,Image,StyleSheet,YellowBox} from 'react-nativ
 import SplashScreen from 'react-native-splash-screen';
 import * as Progress from 'react-native-progress';
 export default class View6 extends Component {
+
+  //隐藏header
+  static navigationOptions = {
+    header: null
+  };
+
+
   constructor(props) {
     super(props);
     SplashScreen.hide(); // 关闭启动屏幕

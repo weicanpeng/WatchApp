@@ -9,6 +9,12 @@ let windowHeight = Dimensions.get('window').Height;
 
 
 export default class View7 extends Component {
+
+  //隐藏header
+  static navigationOptions = {
+    header: null
+  };
+
   constructor(props) {
     super(props);
     SplashScreen.hide(); // 关闭启动屏幕
@@ -35,13 +41,11 @@ export default class View7 extends Component {
   }
 
 
-   onVoiceRecord(){
- 
+  onPress(){
+    this.props.navigation.push('Details');
   
   }
-  stopVoiceRecord(){
-  
- }
+
 
   render() {
     return (
@@ -110,9 +114,15 @@ export default class View7 extends Component {
 
        <View style={styles.bottomView}>
   
+      <TouchableOpacity
+      onPress={this.onPress.bind(this)}
+      >
+
        <Image
        source={require("../images/red_round.png")}
       />
+      </TouchableOpacity>
+
     </View>
     </View> 
     );
