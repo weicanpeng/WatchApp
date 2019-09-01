@@ -3,17 +3,19 @@ import {View,Text,TouchableOpacity,Dimensions,Image,StyleSheet,YellowBox} from '
 import SplashScreen from 'react-native-splash-screen';
 import * as Progress from 'react-native-progress';
 import HeartRateText from './HeartText'
+import DateTimeView from './DateTimeView';
 let windowWidth = Dimensions.get('window').width;
 let windowHeight = Dimensions.get('window').Height;
+
 
 export default class HeartRate extends Component {
   constructor(props) {
     super(props);
     SplashScreen.hide(); // 关闭启动屏幕
-    var timeInfo=this.getTimeInfo();
+    
     this.state = {
     
-    timeInfo:timeInfo
+  
     };
 
     YellowBox.ignoreWarnings([
@@ -30,24 +32,8 @@ export default class HeartRate extends Component {
 
   componentDidMount(){
   
-  setInterval(() => {
-var timeInfo=this.getTimeInfo();
-      this.setState({timeInfo:timeInfo});
-  }, 1000*60);
-    
   }
 
-  getTimeInfo(){
-    var date = new Date();
-
-    var year = date.getFullYear().toString();
-    var month = (date.getMonth()+1).toString();
-    var day = date.getDate().toString();
-    var hour =  date.getHours().toString();
-    var minute = date.getMinutes().toString();
-    var timeInfo=month+'/'+day+' '+hour.padStart(2,'0')+':'+minute.padStart(2,'0');
-    return timeInfo;
-  }
 
   componentWillUnmount(){
   
@@ -70,7 +56,7 @@ var timeInfo=this.getTimeInfo();
               <Image
               source={require("../images/heart_line.png")}
               ></Image>
-              <Text style={styles.text}>{this.state.timeInfo}</Text>
+              <DateTimeView/>
           </View>
           <View style={styles.topView}>
               <HeartRateText

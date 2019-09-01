@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import {View,Text,TouchableOpacity,Image,StyleSheet,YellowBox} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
+import TimeView from './TimeView';
 
 export default class View9 extends Component {
   constructor(props) {
     super(props);
     SplashScreen.hide(); // 关闭启动屏幕
-    var timeInfo=this.getTimeInfo();
-    this.state = {
     
-    timeInfo:timeInfo
+    this.state = {
+
     };
 
     YellowBox.ignoreWarnings([
@@ -23,24 +23,10 @@ export default class View9 extends Component {
 
   componentDidMount(){
   
-    setInterval(() => {
-  var timeInfo=this.getTimeInfo();
-        this.setState({timeInfo:timeInfo});
-    }, 1000*60);
-      
+  
     }
   
-    getTimeInfo(){
-      var date = new Date();
-  
-      var year = date.getFullYear().toString();
-      var month = (date.getMonth()+1).toString();
-      var day = date.getDate().toString();
-      var hour =  date.getHours().toString();
-      var minute = date.getMinutes().toString();
-      var timeInfo=hour.padStart(2,'0')+':'+minute.padStart(2,'0');
-      return timeInfo;
-    }
+ 
 
   componentWillUnmount(){
   
@@ -60,7 +46,7 @@ export default class View9 extends Component {
       <View style={styles.container}>
 
         <View style={styles.timeView}>
-            <Text style={styles.timeText}>{this.state.timeInfo}</Text>
+            <TimeView/>
         </View>
 
           <Text style={styles.bigText}>Dissmiss ?</Text>
@@ -98,10 +84,7 @@ const styles = StyleSheet.create({
       color:'#FFF',
       fontSize:38,
   },
-  timeText:{
-    color:'#FFF',
-    fontSize:16,
-  },
+ 
   checkView:{
 marginTop:5,
   },

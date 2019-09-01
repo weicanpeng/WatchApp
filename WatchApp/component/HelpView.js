@@ -9,9 +9,8 @@ import {
     Image
 } from 'react-native';
 
-import DateTimeUtils from './DateTimeUtils';
 
-
+import TimeView from './TimeView';
 
 
 export default class HelpView extends React.Component {
@@ -19,10 +18,10 @@ export default class HelpView extends React.Component {
     // 7jd5udcy
     constructor(props) {
         super(props);
-        var timeInfo=new DateTimeUtils().getTimeInfo();
+        
         SplashScreen.hide();
         this.state = {
-          timeInfo:timeInfo
+         
         };
     }
 
@@ -30,10 +29,6 @@ export default class HelpView extends React.Component {
 
     componentDidMount(){
   
-        setInterval(() => {
-      var timeInfo=new DateTimeUtils().getTimeInfo();
-            this.setState({timeInfo:timeInfo});
-        }, 1000*60);
           
         }
 
@@ -48,7 +43,7 @@ export default class HelpView extends React.Component {
                   resizeMode='center'
                   source={require("../images/battery_less.png")}
                  ></Image>
-                 <Text style={styles.text}>{this.state.timeInfo}</Text>
+                 <TimeView/>
              </View>
              <View>
                  <View style={styles.outRoundView}>
