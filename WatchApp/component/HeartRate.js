@@ -9,6 +9,12 @@ let windowHeight = Dimensions.get('window').Height;
 
 
 export default class HeartRate extends Component {
+
+  //隐藏header
+  static navigationOptions = {
+    header: null
+  };
+
   constructor(props) {
     super(props);
     SplashScreen.hide(); // 关闭启动屏幕
@@ -39,7 +45,7 @@ export default class HeartRate extends Component {
   
   }
   startHeart(){
-      alert('开始测试心率');
+      alert('start get heart rate');
   }
 
 
@@ -60,26 +66,26 @@ export default class HeartRate extends Component {
           </View>
           <View style={styles.topView}>
               <HeartRateText
-               TopText='血压'
+               TopText='Pressure'
                TopTextColor='#FFF'
              
-               BottomText='158'
+               BottomText='90'
                BottomTextColor='#FF0000'
                BottomImg={up}
               />
                 <HeartRateText
-               TopText='心率'
+               TopText='Heart'
                TopTextColor='#FFF'
                TopImg={heart}
-               BottomText='158'
+               BottomText='80'
                BottomTextColor='#FF0000'
                BottomImg={down}
               />
                 <HeartRateText
-               TopText='血氧'
+               TopText='Oxygen'
                TopTextColor='#FFF'
               
-               BottomText='158'
+               BottomText='89'
                BottomTextColor='#FF0000'
               />
           </View>
@@ -87,19 +93,19 @@ export default class HeartRate extends Component {
               <HeartRateText
                TopText='66'
                TopTextColor='#FFF'
-               BottomText='偏高'
+               BottomText='High'
                BottomTextColor='#FF0000'
               />
                 <HeartRateText
                TopText='76'
                TopTextColor='#FFF'
-               BottomText='偏高'
+               BottomText='Low'
                BottomTextColor='#FF0000'
               />
                 <HeartRateText
                TopText=''
                TopTextColor='#FFF'
-               BottomText='正常'
+               BottomText='Normal'
                BottomTextColor='#008B00'
               />
           </View>
@@ -107,9 +113,10 @@ export default class HeartRate extends Component {
               <TouchableOpacity
               onPress={this.startHeart.bind(this)}
               >
-              <Image
+              {/* <Image
               source={require("../images/heart_test_button.png")}
-              />
+              /> */}
+              <View style={styles.btnView}><Text style={styles.btnText}>Start</Text></View>
               </TouchableOpacity>
           </View>
     </View>
@@ -136,10 +143,25 @@ const styles = StyleSheet.create({
     color:"#FFF",
     marginVertical: 3,
   },
+  btnText:{
+    fontSize: 22,
+    color:"#000",
+    textAlign:'center',
+    textAlignVertical:'center',
+    marginVertical: 3,
+  },
   textBig: {
     fontSize: 48,
     color:"#FFF",
     marginVertical: 3,
+  },
+  btnView:{
+    width:180,
+    height:30,
+    justifyContent:'center',
+    alignItems:'center',
+    backgroundColor:"#FFF",
+    borderRadius:15
   },
   innerView:{
     position: 'absolute',
