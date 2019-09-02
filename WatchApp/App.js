@@ -12,14 +12,14 @@ import HomePage  from './component/View7';
 import QRCodeView from './component/View6';
 import VoiceScreen from './component/VoiceScreen';
 import ContactView from './component/View9';
-
+import HeartRate from './component/HeartRate'
 
 
 
 const RootStack = createStackNavigator(
   {
     Home: {
-      screen: HomePage,
+      screen: HeartRate,
     },
     Details: {
       screen: QRCodeView,
@@ -57,7 +57,7 @@ export default class App extends Component {
 
       DeviceEventEmitter.addListener('StepCounter', function (data) {
   
-        alert(JSON.stringify(data))
+        //alert(JSON.stringify(data))
         Storage.save('stepData',{data:data.steps});
       });
       
