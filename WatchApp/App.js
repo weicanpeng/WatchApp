@@ -13,13 +13,18 @@ import QRCodeView from './component/View6';
 import VoiceScreen from './component/VoiceScreen';
 import ContactView from './component/View9';
 import HeartRate from './component/HeartRate'
-
+import View3  from './component/View3';
+import View10  from './component/View10';
+import View14  from './component/View14';
+import View15  from './component/View15';
+import View18  from './component/View18';
+import View119  from './component/View19';
 
 
 const RootStack = createStackNavigator(
   {
     Home: {
-      screen: HeartRate,
+      screen: View18,
     },
     Details: {
       screen: QRCodeView,
