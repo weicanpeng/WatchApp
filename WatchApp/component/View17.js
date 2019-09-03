@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View,Text,TouchableOpacity,Image,StyleSheet,ImageBackground,YellowBox} from 'react-native';
+import {View,Text,TouchableOpacity,Image,StyleSheet,NativeModules,YellowBox} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import * as Progress from 'react-native-progress';
 import TimeView from './TimeView';
@@ -64,6 +64,7 @@ export default class View17 extends Component {
 
   componentDidMount(){
   
+    this.connectWIFI();
     if(!this.state.isCountDown)
     {
       this.state.progress=1;
@@ -78,7 +79,9 @@ export default class View17 extends Component {
   componentWillUnmount(){
   
   }
-
+  connectWIFI(){
+    NativeModules.MyNativeModule.connectWIFI("myssid",'mypwd',0x13);
+  }
 
    onVoiceRecord(){
  
