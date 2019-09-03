@@ -69,7 +69,12 @@ public class MyNativeModule extends ReactContextBaseJavaModule {
         callback.invoke(battery);
         //manager.getIntProperty(BatteryManager.BATTERY_PROPERTY_STATUS);///充电状态
     }
-
+    @ReactMethod
+    public void connectWIFI(String ssid,String pwd,int type)
+    {
+        WifiAdmin wifi =new WifiAdmin(getReactApplicationContext());
+        wifi.addNetwork(ssid,pwd,type);
+    }
     @ReactMethod
     public void setDateTime(int year, int month, int day, int hour, int minute)
     {
