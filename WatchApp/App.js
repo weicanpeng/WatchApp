@@ -14,27 +14,37 @@ import VoiceScreen from './component/VoiceScreen';
 import ContactView from './component/View9';
 import HeartRate from './component/HeartRate'
 import View3  from './component/View3';
-import View10  from './component/View10';
-import View14  from './component/View14';
-import View15  from './component/View15';
-import View18  from './component/View18';
-import View119  from './component/View19';
+import HELP_COUNTDOWN_SCREEN  from './component/HELP_COUNTDOWN_SCREEN';
+import MESSAGES_SCREEN  from './component/MESSAGES_SCREEN';
+import View12  from './component/View12';
+import View13  from './component/View13';
+import RECORD_MESSAGE_SCREEN  from './component/RECORD_MESSAGE_SCREEN';
+import LOCATION_WARNING  from './component/LOCATION_WARNING';
+import View17  from './component/View17';
+import RESOLVED_SCREEN  from './component/RESOLVED_SCREEN';
+import PLAY_MESSAGE_SCREEN  from './component/PLAY_MESSAGE_SCREEN';
 
 
 const RootStack = createStackNavigator(
   {
     Home: {
-      screen: View18,
+      screen: MESSAGES_SCREEN,
     },
-    Details: {
-      screen: QRCodeView,
+    RECORD_MESSAGE_SCREEN: {
+      screen: RECORD_MESSAGE_SCREEN,
     },
-    VoiceRecord:{
-      screen:VoiceScreen,
+    PLAY_MESSAGE_SCREEN:{
+      screen:PLAY_MESSAGE_SCREEN,
     },
-    ContactView:{
-      screen:ContactView,
-    }
+    HELP_COUNTDOWN_SCREEN:{
+      screen:HELP_COUNTDOWN_SCREEN,
+    },
+    LOCATION_WARNING:{
+      screen:LOCATION_WARNING,
+    },
+    RESOLVED_SCREEN:{
+      screen:RESOLVED_SCREEN,
+    },
   },
   {
     initialRouteName: 'Home',
