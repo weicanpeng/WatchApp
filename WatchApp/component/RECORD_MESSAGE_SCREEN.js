@@ -9,7 +9,7 @@ import { Dimensions } from "react-native";
 let windowWidth = Dimensions.get('window').width;
 let windowHeight = Dimensions.get('window').Height;
 
-export default class View19 extends Component {
+export default class RECORD_MESSAGE_SCREEN extends Component {
 
      //隐藏header
   static navigationOptions = {
@@ -80,9 +80,14 @@ export default class View19 extends Component {
   }
 
 
-   onVoiceRecord(){
+  //开始录音
+   startVoiceRecord(){
  
+
   
+  }
+  PressOut(){
+    alert('press out');
   }
   stopVoiceRecord(){
   
@@ -113,7 +118,7 @@ export default class View19 extends Component {
       </Progress.Circle>
       <View style={styles.innerView}>
       <Image
-       source={require("../images/record_style1.png")}
+       source={require("../images/green_record.png")}
       />
     </View>      
      
@@ -122,9 +127,13 @@ export default class View19 extends Component {
     <View style={styles.rightBottomView}>
    
  
-    <TouchableOpacity>
+    <TouchableOpacity
+    onPress={this.startVoiceRecord.bind(this)}
+    onLongPress={this.startVoiceRecord.bind(this)}
+    onPressOut={this.PressOut.bind(this)}
+    >
    <Image
-       source={require("../images/record_btn_right_bottom.png")}
+       source={require("../images/red_round_right_bottom_btn.png")}
       />
    </TouchableOpacity>
     

@@ -9,7 +9,7 @@ import { Dimensions } from "react-native";
 let windowWidth = Dimensions.get('window').width;
 let windowHeight = Dimensions.get('window').Height;
 
-export default class View19 extends Component {
+export default class View10 extends Component {
 
      //隐藏header
   static navigationOptions = {
@@ -80,13 +80,11 @@ export default class View19 extends Component {
   }
 
 
-   onVoiceRecord(){
- 
+   onCancelHelp(){
+    this.props.navigation.navigate('MESSAGES_SCREEN');
   
   }
-  stopVoiceRecord(){
-  
- }
+
 
   render() {
     return (
@@ -94,24 +92,38 @@ export default class View19 extends Component {
 
         <View style={styles.topView}>
         
-        <Text></Text>
-        
+        <Image
+       source={require("../images/battery_danger.png")}
+      />
         <TimeView/>
         </View>
 
      <View  style={styles.bottomView}>
-    
-     <TouchableOpacity>
-   <Image
-       source={require("../images/resolved.png")}
+     <Progress.Circle
+          //外部边框宽度，0表示没有边框	
+          borderWidth={0}
+          //圆的直径
+          size={200}
+          style={styles.progress}
+          progress={this.state.progress}
+          //如果设置为true，指示器将旋转，进度属性将被忽略
+          indeterminate={false}
+        >
+      </Progress.Circle>
+      <View style={styles.innerView}>
+      <Image
+       source={require("../images/green_help_now.png")}
       />
-   </TouchableOpacity>
+    </View>      
+     
 
      </View>
     <View style={styles.rightBottomView}>
    
  
-    <TouchableOpacity>
+    <TouchableOpacity
+    onPress={this.onCancelHelp.bind(this)}
+    >
    <Image
        source={require("../images/cancel_bottom_right.png")}
       />

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View,Text,TouchableOpacity,Image,StyleSheet,ImageBackground,YellowBox} from 'react-native';
+import {View,Text,TouchableOpacity,Image,StyleSheet,YellowBox} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import * as Progress from 'react-native-progress';
 import TimeView from './TimeView';
@@ -9,7 +9,7 @@ import { Dimensions } from "react-native";
 let windowWidth = Dimensions.get('window').width;
 let windowHeight = Dimensions.get('window').Height;
 
-export default class View11 extends Component {
+export default class PLAY_MESSAGE_SCREEN extends Component {
 
      //隐藏header
   static navigationOptions = {
@@ -91,32 +91,40 @@ export default class View11 extends Component {
   render() {
     return (
       <View style={styles.container}>
-        
-        <View style={styles.timeView}>
-        <TimeView/>
-        </View>
 
         <View style={styles.topView}>
         
-        <Image
-       source={require("../images/bell.png")}
-      />
-        <Text style={styles.bigText}>Fall Detected</Text>
+        <Text></Text>
+        
+        <TimeView/>
         </View>
 
-        <ImageBackground source={require("../images/bg_chat.png")} style={styles.imgBg}>
-         
-         <Text style={styles.textLeft}>Sam</Text>
-         <Text style={styles.textRight}>10:28AM</Text>
-        </ImageBackground>
+     <View  style={styles.bottomView}>
+     <Progress.Circle
+          //外部边框宽度，0表示没有边框	
+          borderWidth={0}
+          //圆的直径
+          size={200}
+          style={styles.progress}
+          progress={this.state.progress}
+          //如果设置为true，指示器将旋转，进度属性将被忽略
+          indeterminate={false}
+        >
+      </Progress.Circle>
+      <View style={styles.innerView}>
+      <Image
+       source={require("../images/record_style1.png")}
+      />
+    </View>      
+     
 
-  
+     </View>
     <View style={styles.rightBottomView}>
    
  
     <TouchableOpacity>
    <Image
-       source={require("../images/red_round_right_bottom_btn.png")}
+       source={require("../images/record_btn_right_bottom.png")}
       />
    </TouchableOpacity>
     
@@ -134,42 +142,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     paddingVertical: 20,
   },
-  imgBg:{
-    flexDirection:'row',
-    width:250,
-   
-    height:150,
-    marginBottom:10,
-    justifyContent:'space-around',
-    alignItems:'center',
-  },
   bigText:{
       color:'#FFF',
-      fontSize:28,
+      fontSize:38,
   },
   text: {
     fontSize: 18,
     color:"#FFF",
     marginVertical: 3,
   },
-  textLeft:{
-    fontSize: 18,
-    color:"#FFF",
-    top:10,
-    left:10,
-    position:'absolute',
-
-  },
-  textRight:{
-    fontSize: 18,
-    color:"#FFF",
-    top:10,
-    right:10,
-    position:'absolute',
-
-  },
   textBig: {
-    fontSize: 33,
+    fontSize: 48,
     color:"#FFF",
     marginVertical: 3,
   },
@@ -184,7 +167,8 @@ const styles = StyleSheet.create({
 marginTop:5,
   },
   topView:{
-    width:250,
+    width:windowWidth,
+    flex:1,
     flexDirection:'row',
     justifyContent:'space-around',
     alignItems:'center',

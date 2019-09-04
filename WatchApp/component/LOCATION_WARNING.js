@@ -9,7 +9,7 @@ import { Dimensions } from "react-native";
 let windowWidth = Dimensions.get('window').width;
 let windowHeight = Dimensions.get('window').Height;
 
-export default class View10 extends Component {
+export default class LOCATION_WARNING extends Component {
 
      //隐藏header
   static navigationOptions = {
@@ -94,9 +94,8 @@ export default class View10 extends Component {
 
         <View style={styles.topView}>
         
-        <Image
-       source={require("../images/battery_danger.png")}
-      />
+        <Text></Text>
+        
         <TimeView/>
         </View>
 
@@ -114,7 +113,7 @@ export default class View10 extends Component {
       </Progress.Circle>
       <View style={styles.innerView}>
       <Image
-       source={require("../images/green_help_now.png")}
+       source={require("../images/forbid.png")}
       />
     </View>      
      
@@ -125,7 +124,7 @@ export default class View10 extends Component {
  
     <TouchableOpacity>
    <Image
-       source={require("../images/cancel_bottom_right.png")}
+       source={require("../images/cancel_bottom_right_style1.png")}
       />
    </TouchableOpacity>
     

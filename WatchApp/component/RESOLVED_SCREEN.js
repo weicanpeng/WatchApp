@@ -9,7 +9,7 @@ import { Dimensions } from "react-native";
 let windowWidth = Dimensions.get('window').width;
 let windowHeight = Dimensions.get('window').Height;
 
-export default class View14 extends Component {
+export default class RESOLVED_SCREEN extends Component {
 
      //隐藏header
   static navigationOptions = {
@@ -80,12 +80,12 @@ export default class View14 extends Component {
   }
 
 
-   onVoiceRecord(){
- 
+  onResolved(){
+    this.props.navigation.navigate('MESSAGES_SCREEN');
   
   }
-  stopVoiceRecord(){
-  
+  onCancel(){
+    this.props.navigation.navigate('MESSAGES_SCREEN');
  }
 
   render() {
@@ -100,31 +100,24 @@ export default class View14 extends Component {
         </View>
 
      <View  style={styles.bottomView}>
-     <Progress.Circle
-          //外部边框宽度，0表示没有边框	
-          borderWidth={0}
-          //圆的直径
-          size={200}
-          style={styles.progress}
-          progress={this.state.progress}
-          //如果设置为true，指示器将旋转，进度属性将被忽略
-          indeterminate={false}
-        >
-      </Progress.Circle>
-      <View style={styles.innerView}>
-      <Image
-       source={require("../images/green_record.png")}
+    
+     <TouchableOpacity
+      onPress={this.onResolved.bind(this)}
+     >
+   <Image
+       source={require("../images/resolved.png")}
       />
-    </View>      
-     
+   </TouchableOpacity>
 
      </View>
     <View style={styles.rightBottomView}>
    
  
-    <TouchableOpacity>
+    <TouchableOpacity
+    onPress={this.onCancel.bind(this)}
+    >
    <Image
-       source={require("../images/red_round_right_bottom_btn.png")}
+       source={require("../images/cancel_bottom_right.png")}
       />
    </TouchableOpacity>
     
