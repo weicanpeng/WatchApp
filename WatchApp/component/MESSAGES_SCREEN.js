@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View,Text,TouchableOpacity,Image,StyleSheet,ImageBackground,YellowBox} from 'react-native';
+import {View,Text,TouchableOpacity,Image,StyleSheet,ImageBackground,NativeModules,YellowBox} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import * as Progress from 'react-native-progress';
 import TimeView from './TimeView';
@@ -81,7 +81,10 @@ export default class MESSAGES_SCREEN extends Component {
 
 
   goRecordMessageScreen(){
-    this.props.navigation.navigate('RECORD_MESSAGE_SCREEN');
+    NativeModules
+    .IntentMoudle
+    .startActivityFromJS("com.watchapp.MyActivity", null);
+  //  this.props.navigation.navigate('RECORD_MESSAGE_SCREEN');
   }
  
   onPressVoiceMessage()
