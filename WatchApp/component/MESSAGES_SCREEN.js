@@ -83,7 +83,7 @@ export default class MESSAGES_SCREEN extends Component {
   goRecordMessageScreen(){
     NativeModules
     .IntentMoudle
-    .startActivityFromJS("com.watchapp.MyActivity", null);
+    .startActivityFromJS("com.watchapp.SerialPortActivity", null);
   //  this.props.navigation.navigate('RECORD_MESSAGE_SCREEN');
   }
  
