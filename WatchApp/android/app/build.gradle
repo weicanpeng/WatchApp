@@ -136,6 +136,13 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+          ndk{
+            moduleName "serial_port"
+            abiFilters "armeabi-v7a","x86"
+        }
+        packagingOptions {
+            exclude "libs/armeabi-v7a/libserial_port.so"
+        }
     }
     splits {
         abi {
@@ -152,6 +159,12 @@ android {
             storePassword MYAPP_RELEASE_STORE_PASSWORD
             keyAlias MYAPP_RELEASE_KEY_ALIAS
             keyPassword MYAPP_RELEASE_KEY_PASSWORD
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs  'src/main/jni'
+            jni.srcDirs = []
         }
     }
     buildTypes {
