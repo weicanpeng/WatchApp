@@ -1,4 +1,4 @@
-package com.myreactdemo;
+package com.watchapp;
 
 
 import android.app.Activity;
