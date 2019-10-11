@@ -23,6 +23,7 @@ public class MyReactPackage extends MainActivity implements ReactPackage {
         List<NativeModule> modules=new ArrayList<>();
         //将我们创建的类添加进原生模块列表中
         modules.add( new MyNativeModule(reactContext) );
+        modules.add( new MyIntentModule(reactContext) );
         return modules;
     }
 
