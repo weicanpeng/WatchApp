@@ -13,6 +13,7 @@
     "react-native": "0.60.5",
     "react-native-amap-geolocation": "^1.0.4",
     "react-native-audio": "^4.3.0",
+    "react-native-fs": "^2.16.1",
     "react-native-gesture-handler": "^1.4.1",
     "react-native-progress": "^3.6.0",
     "react-native-sensor-manager": "^0.1.10",
