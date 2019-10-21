@@ -31,7 +31,7 @@ export default class MessageList extends Component {
             >
 
                 <Text style={styles.textLeft}>Sam</Text>
-                <Text style={styles.textRight}>{timeStr}</Text>
+                <Text style={styles.textRight}>{timeStr.toUpperCase()}</Text>
                 <View tyle={styles.viewCenter}>
                     <Text style={styles.textCenter}>{item.text}</Text>
                 </View>

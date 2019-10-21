@@ -64,10 +64,12 @@ export default class MESSAGES_SCREEN extends Component {
   }
 
   componentDidMount() {
-    this.getImei();
-    setTimeout(() => {
-      this.auth();
-    }, 200);
+
+    var p = new Promise(function (resolve, reject) { resolve() });
+    p.then(this.getImei).then(this.auth).then(function (data) {
+      alert(data);
+    });
+
     if (!this.state.isCountDown) {
       this.state.progress = 1;
       this.animate();
@@ -75,40 +77,50 @@ export default class MESSAGES_SCREEN extends Component {
     }
   }
 
-  auth() {
-    var imei = this.state.imei;
-    fetch('https://api.healthjay.com/auth/login', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        hardwareId: this.state.imei,
-        email: "weicanpeng@126.com",
-        password: "123456"
-      })
-    }).then((response) => response.json())
-      .then((responseJson) => {
-        if (responseJson.message = "Auth success") {
-          this.state.token = responseJson.token;
-          Storage.save("auth", responseJson);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });;
+  auth(imei) {
+    alert(imei);
+    return new Promise(function (resolve, reject) {
+      fetch('http://localhost:8080/auth/login', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          hardwareId: imei,
+
+        })
+      }).then((response) => response.json())
+        .then((responseJson) => {
+          if (responseJson.message = "Auth success") {
+            this.state.token = responseJson.token;
+            Storage.save("auth", responseJson);
+            resolve(responseJson);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          resolve(JSON.stringify(error));
+        });
+    });
+
   }
 
   getImei() {
     var that = this;
-    Storage.get('stepData').then((result) => {
-      if (result.imei == "" || result.imei == undefined || result.imei == null) {
-        getImeiFromHardware();
-      } else {
-        that.setState({ imei: result.imei });
-      }
+
+    return new Promise(function (resolve, reject) {
+      Storage.get('stepData').then((result) => {
+        if (result.imei == "" || result.imei == undefined || result.imei == null) {
+          getImeiFromHardware();
+        } else {
+          that.setState({ imei: result.imei });
+        }
+        resolve(result.imei);
+      });
     });
+
+
   }
 
   async getImeiFromHardware() {
@@ -126,10 +138,12 @@ export default class MESSAGES_SCREEN extends Component {
 
 
   goRecordMessageScreen() {
+    /*
     NativeModules
-    .IntentMoudle
-    .startActivityFromJS("com.watchapp.SerialPortActivity", null);
-  //  this.props.navigation.navigate('RECORD_MESSAGE_SCREEN');
+      .IntentMoudle
+      .startActivityFromJS("com.watchapp.SerialPortActivity", null);
+      */
+      this.props.navigation.navigate('RECORD_MESSAGE_SCREEN');
   }
 
   onPressVoiceMessage() {
@@ -146,6 +160,13 @@ export default class MESSAGES_SCREEN extends Component {
         </View>
         <View style={styles.topView}>
           <MessageList />
+        </View>
+        <View style={styles.rightBottomView}>
+          <TouchableOpacity onPress={this.goRecordMessageScreen.bind(this)}>
+            <Image
+              source={require("../images/red_round_right_bottom_btn.png")}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     );
