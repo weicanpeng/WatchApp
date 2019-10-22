@@ -66,7 +66,7 @@ export default class MESSAGES_SCREEN extends Component {
   componentDidMount() {
 
     var p = new Promise(function (resolve, reject) { resolve() });
-    p.then(this.getImei).then(this.auth).then(function (data) {
+    p.then(this.getImeiFromHardware).then(this.auth).then(function (data) {
       alert(data);
     });
 
@@ -112,9 +112,9 @@ export default class MESSAGES_SCREEN extends Component {
     return new Promise(function (resolve, reject) {
       Storage.get('stepData').then((result) => {
         if (result.imei == "" || result.imei == undefined || result.imei == null) {
-          getImeiFromHardware();
+          that.getImeiFromHardware();
         } else {
-          that.setState({ imei: result.imei });
+         // that.setState({ imei: result.imei });
         }
         resolve(result.imei);
       });
@@ -125,11 +125,15 @@ export default class MESSAGES_SCREEN extends Component {
 
   async getImeiFromHardware() {
     await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE);
-
-    NativeModules.MyNativeModule.getImei((result) => {
-      Storage.save('imei', { imei: result });
-      this.setState({ imei: result });
+    return new Promise(function (resolve, reject) {
+      NativeModules.MyNativeModule.getImei((result) => {
+       // alert(result)
+        Storage.save('imei', { imei: result });
+      //  this.setState({ imei: result });
+        resolve(result);
+      });
     });
+
   }
 
   componentWillUnmount() {
@@ -143,7 +147,7 @@ export default class MESSAGES_SCREEN extends Component {
       .IntentMoudle
       .startActivityFromJS("com.watchapp.SerialPortActivity", null);
       */
-      this.props.navigation.navigate('RECORD_MESSAGE_SCREEN');
+    this.props.navigation.navigate('RECORD_MESSAGE_SCREEN');
   }
 
   onPressVoiceMessage() {
