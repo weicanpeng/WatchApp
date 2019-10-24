@@ -65,9 +65,13 @@ export default class MESSAGES_SCREEN extends Component {
 
   componentDidMount() {
 
+  
     var p = new Promise(function (resolve, reject) { resolve() });
     p.then(this.getImeiFromHardware).then(this.auth).then(function (data) {
-      alert(data);
+        alert(JSON.stringify(data));
+       
+        Storage.save("auth", data);
+        Storage.save('token',data.token);
     });
 
     if (!this.state.isCountDown) {
@@ -78,23 +82,23 @@ export default class MESSAGES_SCREEN extends Component {
   }
 
   auth(imei) {
-    alert(imei);
+     
     return new Promise(function (resolve, reject) {
-      fetch('http://localhost:8080/auth/login', {
+      fetch('https://api.healthjay.com/auth/login', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          hardwareId: imei,
-
+         // hardwareId: imei,
+         email:"weicanpeng@126.com",
+         password:'123456'
         })
       }).then((response) => response.json())
         .then((responseJson) => {
           if (responseJson.message = "Auth success") {
-            this.state.token = responseJson.token;
-            Storage.save("auth", responseJson);
+          
             resolve(responseJson);
           }
         })
@@ -163,7 +167,7 @@ export default class MESSAGES_SCREEN extends Component {
           <TimeView />
         </View>
         <View style={styles.topView}>
-          <MessageList />
+          {/* <MessageList /> */}
         </View>
         <View style={styles.rightBottomView}>
           <TouchableOpacity onPress={this.goRecordMessageScreen.bind(this)}>

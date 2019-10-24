@@ -5,6 +5,7 @@ import * as Progress from 'react-native-progress';
 import { AudioRecorder, AudioUtils } from 'react-native-audio';
 import Sound from 'react-native-sound';
 import TimeView from './TimeView';
+import Storage from './DeviceStorage';
 import { Dimensions } from "react-native";
 import fs from 'react-native-fs';
 
@@ -184,35 +185,67 @@ export default class RECORD_MESSAGE_SCREEN extends Component {
     }
   }
 
-  
-  
-  uploadFile()
-  {
+  uploadFilePromise(item) {
+    return new Promise(function (resolve, reject) {
+      let formData = new FormData()
+
+      formData.append("circleId", "5da2983938c1252ac8fcb0d6");
+      formData.append("kind", "AUDIO");
+
+      // file是字段名，根据后端接受参数的名字来定,android上通过react-native-file-selector获取的path是不包含'file://'协议的，android上需要拼接协议为'file://'+path，而IOS则不需要,type可以是文件的MIME类型或者'multipart/form-data'
+      //formData.append('file',{uri:'file://'+path,type:'multipart/form-data'})
+
+      formData.append('data', item.content);
+      // 可能还会有其他参数 formData.append(key,value)
+      fetch(item.url, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': 'Bearer ' + item.token
+        },
+        body: formData
+      }).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    });
+  }
+
+  readFile(item) {
+
+    return new Promise(function (resolve, reject) {
+      fs.readFile(item.path,'base64').then(content => {
+        item.content = content;
+        resolve(item);
+      });
+    });
+  }
+
+  uploadFile() {
 
     //JS-Promise（使异步操作同步执行） - zjffun - 博客园  https://www.cnblogs.com/jffun-blog/p/9128196.html?tdsourcetag=s_pcqq_aiomsg
-  
-    var url="http://app.yintaifu.com.cn/api/Luancher/SendMsgToApp";
-    let formData = new FormData()
-   
-    formData.append("circleId","5da2983938c1252ac8fcb0d6");
-    formData.append("kind", "AUDIO");
-    var path=this.state.audioPath;
-    // file是字段名，根据后端接受参数的名字来定,android上通过react-native-file-selector获取的path是不包含'file://'协议的，android上需要拼接协议为'file://'+path，而IOS则不需要,type可以是文件的MIME类型或者'multipart/form-data'
-    //formData.append('file',{uri:'file://'+path,type:'multipart/form-data'})
-    
-    formData.append('data',fs.readFileSync(path));
-    // 可能还会有其他参数 formData.append(key,value)
-    fetch(url, {
-      method: 'post',
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
-      body: formData
-    }).then(res => {
-      console.log('res', res)
-    }).catch(err => {
-      console.log('err', err)
-    })
+    var path = this.state.audioPath;
+    var item = {
+      path: path,
+      url: 'https://api.healthjay.com/message-attachment',
+    };
+    var p = new Promise(function (resolve, reject) {
+
+      Storage.get('auth').then(res => {
+        item.token = res.token;
+        resolve(item);
+      });
+    });
+    p.then(this.readFile).then(this.uploadFilePromise).then(res => {
+      alert(JSON.stringify(res));
+    },err=>{
+      alert(JSON.stringify(err));
+    }).catch(ex=>{
+      alert(JSON.stringify(ex));
+    });
+
+
   }
 
   // 播放录音
