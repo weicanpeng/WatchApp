@@ -73,7 +73,17 @@ export default class MESSAGES_SCREEN extends Component {
         Storage.save("auth", data);
         Storage.save('token',data.token);
     });
+    var item={};
+    var pp = new Promise(function (resolve, reject) {
 
+      Storage.get('auth').then(res => {
+        item.token = res.token;
+        resolve(item);
+      });
+    });
+    pp.then(this.getImeiFromHardware).then(this.triggerLocationEventPromise).then(function(data){
+
+    });
     if (!this.state.isCountDown) {
       this.state.progress = 1;
       this.animate();
@@ -110,6 +120,28 @@ export default class MESSAGES_SCREEN extends Component {
 
   }
 
+  triggerLocationEventPromise(item)
+  {
+    return new Promise(function(resolve, reject){
+      fetch('https://api.healthjay.com/eventTriggers/location', {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + item.token
+        },
+        body:  JSON.stringify({
+           deviceId: item.imei,
+           latitude:"22.3",
+           longitude:'114.3'
+         })
+      }).then(res => {
+        resolve(res)
+      }).catch(err => {
+        reject(err)
+      })
+    });
+  }
+
   getImei() {
     var that = this;
 
@@ -127,14 +159,21 @@ export default class MESSAGES_SCREEN extends Component {
 
   }
 
-  async getImeiFromHardware() {
+  async getImeiFromHardware(item) {
     await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE);
     return new Promise(function (resolve, reject) {
       NativeModules.MyNativeModule.getImei((result) => {
        // alert(result)
         Storage.save('imei', { imei: result });
       //  this.setState({ imei: result });
+      if(item)
+      {
+        item.imei=result;
+        resolve(item);
+      }else{
         resolve(result);
+      }
+        
       });
     });
 

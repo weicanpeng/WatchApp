@@ -8,6 +8,7 @@ import TimeView from './TimeView';
 import Storage from './DeviceStorage';
 import { Dimensions } from "react-native";
 import fs from 'react-native-fs';
+import { Promise } from 'core-js';
 
 
 //也可以在这里先取出屏幕的宽高
@@ -221,6 +222,8 @@ export default class RECORD_MESSAGE_SCREEN extends Component {
       });
     });
   }
+
+ 
 
   uploadFile() {
 
