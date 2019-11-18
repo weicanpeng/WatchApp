@@ -9,7 +9,9 @@ import Storage from './DeviceStorage';
 import { Dimensions } from "react-native";
 import fs from 'react-native-fs';
 import { Promise } from 'core-js';
-
+import Tools from './Tools';
+//var fs1 = require('fs'); 
+//import fs1 from 'fs'
 
 //也可以在这里先取出屏幕的宽高
 let windowWidth = Dimensions.get('window').width;
@@ -75,6 +77,22 @@ export default class RECORD_MESSAGE_SCREEN extends Component {
 
   componentDidMount() {
 
+    var item = {};
+    var pp = new Promise(function (resolve, reject) {
+
+      Storage.get('auth').then(res => {
+        item.token = res.token;
+        resolve(item);
+      });
+    });
+
+    pp.then(Tools.getImeiFromHardware).then(Tools.triggerLocationEventPromise).then(function (data) {
+
+      alert(JSON.stringify(data));
+    }).catch(function(err){
+      alert("出错了"+JSON.stringify(err));
+    });
+    
 
     // 请求授权
     AudioRecorder.requestAuthorization()
@@ -180,7 +198,8 @@ export default class RECORD_MESSAGE_SCREEN extends Component {
     this.setState({ stop: true, recording: false, paused: false });
     try {
       await AudioRecorder.stopRecording();
-      this.uploadFile();
+     // this.uploadFile2();
+     this.uploadFile();
     } catch (error) {
       console.error(error);
     }
@@ -214,7 +233,6 @@ export default class RECORD_MESSAGE_SCREEN extends Component {
   }
 
   readFile(item) {
-
     return new Promise(function (resolve, reject) {
       fs.readFile(item.path,'base64').then(content => {
         item.content = content;
@@ -223,7 +241,36 @@ export default class RECORD_MESSAGE_SCREEN extends Component {
     });
   }
 
+  /*
+  uploadFile2()
+  {
+     //JS-Promise（使异步操作同步执行） - zjffun - 博客园  https://www.cnblogs.com/jffun-blog/p/9128196.html?tdsourcetag=s_pcqq_aiomsg
+     var path = this.state.audioPath;
+     var content= fs1.readFileSync(path);
+   
+    var item = {
+      path: path,
+      content: content,
+      url: 'https://api.healthjay.com/message-attachment',
+    };
+    var p = new Promise(function (resolve, reject) {
+
+      Storage.get('auth').then(res => {
+        item.token = res.token;
+        resolve(item);
+      });
+    });
+    p.then(this.uploadFilePromise).then(res => {
+      alert(JSON.stringify(res));
+    },err=>{
+      alert(JSON.stringify(err));
+    }).catch(ex=>{
+      alert(JSON.stringify(ex));
+    });
+
+  }
  
+*/
 
   uploadFile() {
 

@@ -6,6 +6,8 @@ import TimeView from './TimeView';
 import { Dimensions } from "react-native";
 import Storage from './DeviceStorage';
 import MessageList from './MessageList';
+import Tools from './Tools';
+
 //也可以在这里先取出屏幕的宽高
 let windowWidth = Dimensions.get('window').width;
 let windowHeight = Dimensions.get('window').Height;
@@ -65,25 +67,18 @@ export default class MESSAGES_SCREEN extends Component {
 
   componentDidMount() {
 
-  
     var p = new Promise(function (resolve, reject) { resolve() });
-    p.then(this.getImeiFromHardware).then(this.auth).then(function (data) {
+    p.then(Tools.getImeiFromHardware).then(Tools.auth).then(function (data) {
         alert(JSON.stringify(data));
        
         Storage.save("auth", data);
         Storage.save('token',data.token);
+    }).catch(function(err){
+      alert("出错了"+JSON.stringify(err));
     });
-    var item={};
-    var pp = new Promise(function (resolve, reject) {
+  
 
-      Storage.get('auth').then(res => {
-        item.token = res.token;
-        resolve(item);
-      });
-    });
-    pp.then(this.getImeiFromHardware).then(this.triggerLocationEventPromise).then(function(data){
-
-    });
+ 
     if (!this.state.isCountDown) {
       this.state.progress = 1;
       this.animate();
@@ -91,57 +86,9 @@ export default class MESSAGES_SCREEN extends Component {
     }
   }
 
-  auth(imei) {
-     
-    return new Promise(function (resolve, reject) {
-      fetch('https://api.healthjay.com/auth/login', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-         // hardwareId: imei,
-         email:"weicanpeng@126.com",
-         password:'123456'
-        })
-      }).then((response) => response.json())
-        .then((responseJson) => {
-          if (responseJson.message = "Auth success") {
-          
-            resolve(responseJson);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          resolve(JSON.stringify(error));
-        });
-    });
 
-  }
 
-  triggerLocationEventPromise(item)
-  {
-    return new Promise(function(resolve, reject){
-      fetch('https://api.healthjay.com/eventTriggers/location', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + item.token
-        },
-        body:  JSON.stringify({
-           deviceId: item.imei,
-           latitude:"22.3",
-           longitude:'114.3'
-         })
-      }).then(res => {
-        resolve(res)
-      }).catch(err => {
-        reject(err)
-      })
-    });
-  }
-
+/*
   getImei() {
     var that = this;
 
@@ -150,7 +97,7 @@ export default class MESSAGES_SCREEN extends Component {
         if (result.imei == "" || result.imei == undefined || result.imei == null) {
           that.getImeiFromHardware();
         } else {
-         // that.setState({ imei: result.imei });
+          // that.setState({ imei: result.imei });
         }
         resolve(result.imei);
       });
@@ -163,22 +110,21 @@ export default class MESSAGES_SCREEN extends Component {
     await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE);
     return new Promise(function (resolve, reject) {
       NativeModules.MyNativeModule.getImei((result) => {
-       // alert(result)
+        alert(result)
         Storage.save('imei', { imei: result });
-      //  this.setState({ imei: result });
-      if(item)
-      {
-        item.imei=result;
-        resolve(item);
-      }else{
-        resolve(result);
-      }
-        
+        //  this.setState({ imei: result });
+        if (item) {
+          item.imei = result;
+          resolve(item);
+        } else {
+          resolve(result);
+        }
+
       });
     });
 
   }
-
+*/
   componentWillUnmount() {
 
   }
